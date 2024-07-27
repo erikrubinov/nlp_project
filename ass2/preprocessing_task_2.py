@@ -1,5 +1,3 @@
-import pandas as pd
-from csv import QUOTE_NONE
 import re
 from helpers import load_datasets
 
@@ -27,15 +25,6 @@ def preprocess_data(data_en, data_fr):
     data_en = data_en[mask]
     data_fr = data_fr[mask]
 
-    return data_en, data_fr
-
-
-"""
-Remove all characters that are defined as noise from both translations
-"""
-
-
-def remove_noisy_characters(data):
     # Define the characters to remove
     noisy_characters = re.escape('@#$%^&*~<>|\\{}[]+=_/')
 
@@ -43,15 +32,16 @@ def remove_noisy_characters(data):
     regex_pattern = f'[{noisy_characters}]'
 
     # Remove noisy characters using regex substitution
-    data['text'] = data['text'].apply(lambda x: re.sub(regex_pattern, '', x))
+    data_en['text'] = data_en['text'].apply(lambda x: re.sub(regex_pattern, '', x))
+    data_fr['text'] = data_fr['text'].apply(lambda x: re.sub(regex_pattern, '', x))
 
-    return data
+
+    return data_en, data_fr
 
 
-def do_all_preproccsing():
+
+def prepare_data():
     english_data, french_data = load_datasets()
     preprocessed_en, preprocessed_fr = preprocess_data(english_data, french_data)
-    preprocessed_en = remove_noisy_characters(preprocessed_en)
-    preprocessed_fr = remove_noisy_characters(preprocessed_fr)
 
     return preprocessed_en, preprocessed_fr

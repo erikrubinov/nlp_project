@@ -1,4 +1,5 @@
 import pandas as pd
+from csv import QUOTE_NONE
 
 """ Function to load data into a pandas DataFrame without treating any character as quotes"""
 
