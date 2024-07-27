@@ -16,7 +16,7 @@ def load_datasets():
     french_data = load_data_to_dataframe(french_file_path)
 
     ## Take 10% fraction of data randomly sampled
-    english_data = english_data.sample(frac=0.1, random_state=42)
-    french_data = french_data.sample(frac=0.1, random_state=42)
+    english_data = english_data.sample(frac=0.01, random_state=42)
+    french_data = french_data.sample(frac=0.01, random_state=42)
 
     return english_data, french_data
