@@ -40,8 +40,8 @@ def preprocess_data(data_en, data_fr):
 
 
 
-def prepare_data():
-    english_data, french_data = load_datasets()
+def prepare_data(fraction):
+    english_data, french_data = load_datasets(fraction)
     preprocessed_en, preprocessed_fr = preprocess_data(english_data, french_data)
 
     return preprocessed_en, preprocessed_fr
