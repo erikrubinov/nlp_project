@@ -4,3 +4,8 @@ ass2/fr-en/
 ass2/fr-en.tgz
 NLP - Project 2_3-1.pdf
 ass2/glove.6B
+ass2/__pychache__
+ass2/.ipynb_checkpoints
+ass2/.DS_STORE
+ass2/fasttext
+ass2/word2vec
