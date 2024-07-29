@@ -1,9 +1,6 @@
 import pandas as pd
-from csv import QUOTE_NONE
 
-""" Function to load data into a pandas DataFrame without treating any character as quotes"""
-
-def load_data_to_dataframe(file_path):
+def load_data_to_dataframe(file_path) -> pd.DataFrame:
     # Read the file line-by-line into a list
     with open(file_path, 'r') as file:
         lines = file.readlines()
@@ -15,18 +12,17 @@ def load_data_to_dataframe(file_path):
     df = pd.DataFrame(lines, columns=['text'])
     return df
 
-def load_datasets(fraction):
-    # Define the paths to your files
-    english_file_path = "fr-en/europarl-v7.fr-en.en"
-    french_file_path = "fr-en/europarl-v7.fr-en.fr"
+
+def load_datasets(fraction, source_file_path="fr-en/europarl-v7.fr-en.en",
+                  target_file_path="fr-en/europarl-v7.fr-en.fr"):
     # Load the data
-    english_data = load_data_to_dataframe(english_file_path)
-    french_data = load_data_to_dataframe(french_file_path)
+    source_data = load_data_to_dataframe(source_file_path)
+    target_data = load_data_to_dataframe(target_file_path)
 
-    ## Take a fraction of data randomly sampled but keep order
-    english_data = english_data.sample(frac=fraction, random_state=42).sort_index()
-    # for all the indices in the english data that do not exist in the french data, drop them
-    english_data = english_data[english_data.index.isin(french_data.index)]
-    french_data = french_data[french_data.index.isin(english_data.index)]
+    # Take a fraction of data randomly sampled but keep order
+    source_data = source_data.sample(frac=fraction, random_state=42).sort_index()
+    # for all the indices in the source data that do not exist in the target data, drop them
+    source_data = source_data[source_data.index.isin(target_data.index)]
+    target_data = target_data[target_data.index.isin(source_data.index)]
 
-    return english_data, french_data
+    return source_data, target_data
